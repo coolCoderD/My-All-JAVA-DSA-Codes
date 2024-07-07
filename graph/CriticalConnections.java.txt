@@ -1,0 +1,41 @@
+class Solution
+{
+    int timer=1;
+    ArrayList<ArrayList<Integer>> ans=new ArrayList<>();
+    public  void dfs(int node,int par,int vis[],int tn[],int low[],ArrayList<ArrayList<Integer>> adj){
+        vis[node]=1;
+        tn[node]=low[node]=timer;
+        timer++;
+        for(Integer ele:adj.get(node)){
+            if(ele==par) continue;
+            if(vis[ele]==0){
+                dfs(ele,node,vis,tn,low,adj);
+                low[node]=Math.min(low[node],low[ele]);
+                if (low[ele] > tn[node]) {
+                    ArrayList<Integer> edge = new ArrayList<>(Arrays.asList(ele, node));
+                    Collections.sort(edge);
+                    ans.add(edge);
+                }
+            }
+            else low[node]=Math.min(low[node],low[ele]);
+            
+        }
+    }
+    public ArrayList<ArrayList<Integer>> criticalConnections(int v, ArrayList<ArrayList<Integer>> adj)
+    {
+        int vis[]=new int[v];
+        int tn[]=new int[v];
+        int low[]=new int[v];
+        dfs(0,-1,vis,tn,low,adj);
+        Collections.sort(ans, (a, b) -> {
+            if (a.get(0).equals(b.get(0))) {
+                return a.get(1).compareTo(b.get(1));
+            }
+            return a.get(0).compareTo(b.get(0));
+        });
+
+        return ans;
+        
+        
+    }
+}

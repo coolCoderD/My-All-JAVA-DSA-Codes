@@ -1,0 +1,9 @@
+LeetCode Imp Ques:
+9. Palindrome Number
+7. Reverse Integer
+1146. Snapshot Array
+143. Reorder List
+897. Increasing Order Search Tree
+
+
+
